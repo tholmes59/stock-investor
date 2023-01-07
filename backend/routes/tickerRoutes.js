@@ -7,12 +7,8 @@ const {
   deleteTicker,
 } = require("../controllers/tickerController");
 
-router.get("/", getTickers);
+router.route("/").get(getTickers).post(setTicker);
 
-router.post("/", setTicker);
-
-router.put("/:id", editTicker);
-
-router.delete("/:id", deleteTicker);
+router.route("/:id").put(editTicker).delete(deleteTicker);
 
 module.exports = router;
