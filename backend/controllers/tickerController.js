@@ -9,6 +9,11 @@ const getTickers = (req, res) => {
 //@route    POST /api/tickers
 //@access   Private
 const setTicker = (req, res) => {
+  if (!req.body.text) {
+    res.status(400);
+    throw new Error("Please add a ticker");
+  }
+
   res.status(200).json({ message: "Set ticker!" });
 };
 
