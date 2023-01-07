@@ -8,27 +8,27 @@ const getTickers = (req, res) => {
 //@desc     Set tickers
 //@route    POST /api/tickers
 //@access   Private
-const setTickers = (req, res) => {
-  res.status(200).json({ message: "Set tickers!" });
+const setTicker = (req, res) => {
+  res.status(200).json({ message: "Set ticker!" });
 };
 
 //@desc     Edit tickers
 //@route    PUT /api/tickers
 //@access   Private
-const editTickers = (req, res) => {
+const editTicker = (req, res) => {
   res.status(200).json({ message: `Update ticker ${req.params.id}` });
 };
 
 //@desc     Delete tickers
 //@route    DELETE /api/tickers
 //@access   Private
-const deleteTickers = (req, res) => {
+const deleteTicker = (req, res) => {
   res.status(200).json({ message: `Delete ticker ${req.params.id}` });
 };
 
 module.exports = {
   getTickers,
-  setTickers,
-  editTickers,
-  deleteTickers,
+  setTicker,
+  editTicker,
+  deleteTicker,
 };
