@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const {
   getTickers,
-  setTickers,
-  editTickers,
-  deleteTickers,
+  setTicker,
+  editTicker,
+  deleteTicker,
 } = require("../controllers/tickerController");
 
 router.get("/", getTickers);
 
-router.post("/", setTickers);
+router.post("/", setTicker);
 
-router.put("/:id", editTickers);
+router.put("/:id", editTicker);
 
-router.delete("/:id", deleteTickers);
+router.delete("/:id", deleteTicker);
 
 module.exports = router;
