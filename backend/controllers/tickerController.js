@@ -1,10 +1,12 @@
 const asyncHandler = require("express-async-handler");
+const Ticker = require("../models/tickerModel");
 
 //@desc     Get tickers
 //@route    GET /api/tickers
 //@access   Private
 const getTickers = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "The tickers!" });
+  let tickers = await Ticker.find();
+  res.status(200).json(tickers);
 });
 
 //@desc     Set tickers
@@ -16,7 +18,11 @@ const setTicker = asyncHandler(async (req, res) => {
     throw new Error("Please add a ticker");
   }
 
-  res.status(200).json({ message: "Set ticker!" });
+  const ticker = await Ticker.create({
+    text: req.body.text,
+  });
+
+  res.status(200).json(ticker);
 });
 
 //@desc     Edit tickers
