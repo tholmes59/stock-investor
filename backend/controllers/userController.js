@@ -1,23 +1,44 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+
 //@desc     Register new user
 //@route    POST /api/users
 //@access   Public
-const registerUser = (req, res) => {
-  res.status(200).json({ message: "User created" });
-};
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    res.status(400);
+    throw new Error("Please fill in all fields");
+  }
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const newUser = await User.create({
+    name: name,
+    email: email,
+    password: hashedPassword,
+  });
+  res.status(200).json(newUser);
+});
 
 //@desc     Authenticate new user
 //@route    POST /api/login
 //@access   Public
-const loginUser = (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Login user" });
-};
+});
 
 //@desc     Get user data
 //@route    GET /api/users
 //@access   Public
-const getUser = (req, res) => {
+const getUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Display user info" });
-};
+});
 
 module.exports = {
   registerUser,
