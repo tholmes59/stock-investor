@@ -30,7 +30,6 @@ const setTicker = asyncHandler(async (req, res) => {
 //@access   Private
 const editTicker = asyncHandler(async (req, res) => {
   const ticker = await Ticker.findOne(req.params.ticker);
-  console.log(ticker);
 
   if (!ticker) {
     res.status(400);
@@ -46,10 +45,19 @@ const editTicker = asyncHandler(async (req, res) => {
 });
 
 //@desc     Delete tickers
-//@route    DELETE /api/tickers
+//@route    DELETE /api/tickers/:ticker
 //@access   Private
 const deleteTicker = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete ticker ${req.params.id}` });
+  console.log(req.params.id);
+  const ticker = await Ticker.findOne({ text: req.params.id });
+  if (!ticker) {
+    res.status(400);
+    throw new Error("Ticker not found");
+  }
+
+  // const deleteTicker = await Ticker.deleteOne(req.params.ticker);
+  await ticker.remove();
+  res.status(200).json({ ticker: req.params.id });
 });
 
 module.exports = {
