@@ -26,10 +26,23 @@ const setTicker = asyncHandler(async (req, res) => {
 });
 
 //@desc     Edit tickers
-//@route    PUT /api/tickers
+//@route    PUT /api/tickers/:ticker
 //@access   Private
 const editTicker = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update ticker ${req.params.id}` });
+  const ticker = await Ticker.findOne(req.params.ticker);
+  console.log(ticker);
+
+  if (!ticker) {
+    res.status(400);
+    throw new Error("Ticker not found");
+  }
+
+  const updatedTicker = await Ticker.findOneAndUpdate(
+    req.params.ticker,
+    req.body,
+    { new: true }
+  );
+  res.status(200).json(updatedTicker);
 });
 
 //@desc     Delete tickers
