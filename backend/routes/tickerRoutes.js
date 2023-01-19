@@ -6,9 +6,10 @@ const {
   editTicker,
   deleteTicker,
 } = require("../controllers/tickerController");
+const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(getTickers).post(setTicker);
+router.route("/").get(protect, getTickers).post(protect, setTicker);
 
-router.route("/:id").put(editTicker).delete(deleteTicker);
+router.route("/:id").put(protect, editTicker).delete(protect, deleteTicker);
 
 module.exports = router;
