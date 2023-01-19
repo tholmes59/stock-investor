@@ -29,7 +29,17 @@ const registerUser = asyncHandler(async (req, res) => {
     email: email,
     password: hashedPassword,
   });
-  res.status(200).json(newUser);
+
+  if (newUser) {
+    res.status(201).json({
+      _id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid User data for setup");
+  }
 });
 
 //@desc     Authenticate new user
