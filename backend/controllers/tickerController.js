@@ -5,7 +5,7 @@ const Ticker = require("../models/tickerModel");
 //@route    GET /api/tickers
 //@access   Private
 const getTickers = asyncHandler(async (req, res) => {
-  let tickers = await Ticker.find();
+  let tickers = await Ticker.find({ user: req.user.id });
   res.status(200).json(tickers);
 });
 
