@@ -29,15 +29,15 @@ const setTicker = asyncHandler(async (req, res) => {
 //@route    PUT /api/tickers/:ticker
 //@access   Private
 const editTicker = asyncHandler(async (req, res) => {
-  const ticker = await Ticker.findOne(req.params.ticker);
+  const ticker = await Ticker.findById(req.params.id);
 
   if (!ticker) {
     res.status(400);
     throw new Error("Ticker not found");
   }
 
-  const updatedTicker = await Ticker.findOneAndUpdate(
-    req.params.ticker,
+  const updatedTicker = await Ticker.findByIdAndUpdate(
+    req.params.id,
     req.body,
     { new: true }
   );
@@ -48,16 +48,14 @@ const editTicker = asyncHandler(async (req, res) => {
 //@route    DELETE /api/tickers/:ticker
 //@access   Private
 const deleteTicker = asyncHandler(async (req, res) => {
-  console.log(req.params.id);
-  const ticker = await Ticker.findOne({ text: req.params.id });
+  const ticker = await Ticker.findById(req.params.id);
   if (!ticker) {
     res.status(400);
     throw new Error("Ticker not found");
   }
 
-  // const deleteTicker = await Ticker.deleteOne(req.params.ticker);
   await ticker.remove();
-  res.status(200).json({ ticker: req.params.id });
+  res.status(200).json({ id: req.params.id });
 });
 
 module.exports = {
