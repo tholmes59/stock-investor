@@ -20,6 +20,7 @@ const setTicker = asyncHandler(async (req, res) => {
 
   const ticker = await Ticker.create({
     text: req.body.text,
+    user: req.user.id,
   });
 
   res.status(200).json(ticker);
