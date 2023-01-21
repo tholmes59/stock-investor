@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Ticker = require("../models/tickerModel");
+const User = require("../models/userModel");
 
 //@desc     Get tickers
 //@route    GET /api/tickers
@@ -37,6 +38,20 @@ const editTicker = asyncHandler(async (req, res) => {
     throw new Error("Ticker not found");
   }
 
+  const user = await User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // Make sure the logged in user matches the user asigned to goal
+  if (global.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authroized to edit");
+  }
+
   const updatedTicker = await Ticker.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -53,6 +68,20 @@ const deleteTicker = asyncHandler(async (req, res) => {
   if (!ticker) {
     res.status(400);
     throw new Error("Ticker not found");
+  }
+
+  const user = await User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // Make sure the logged in user matches the user asigned to goal
+  if (global.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authroized to edit");
   }
 
   await ticker.remove();
