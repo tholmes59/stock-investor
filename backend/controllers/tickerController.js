@@ -46,8 +46,8 @@ const editTicker = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // Make sure the logged in user matches the user asigned to goal
-  if (global.user.toString() !== user.id) {
+  // Make sure the logged in user matches the user asigned to ticker
+  if (ticker.user.toString() !== user.id) {
     res.status(401);
     throw new Error("User not authroized to edit");
   }
@@ -78,8 +78,8 @@ const deleteTicker = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // Make sure the logged in user matches the user asigned to goal
-  if (global.user.toString() !== user.id) {
+  // Make sure the logged in user matches the user asigned to ticker
+  if (ticker.user.toString() !== user.id) {
     res.status(401);
     throw new Error("User not authroized to edit");
   }
