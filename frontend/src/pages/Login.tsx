@@ -20,6 +20,10 @@ export default function Login() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    setFormData({
+      email: "",
+      password: "",
+    });
   };
 
   return (
