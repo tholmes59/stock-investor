@@ -22,6 +22,12 @@ export default function Register() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+    });
   };
 
   return (
