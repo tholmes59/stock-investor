@@ -17,11 +17,13 @@ function App() {
             <SearchCompanyProfile />
             <SearchCompanyTicker />
           </section>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
+          <section className="w-full max-w-3xl mx-auto p-0 text-center">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          </section>
         </div>
       </Router>
     </>
