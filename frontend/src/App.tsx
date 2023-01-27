@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Quote from "./components/Quote";
 import SearchCompanyProfile from "./components/SearchCompanyProfile";
 import SearchCompanyTicker from "./components/SearchCompanyTicker";
 import Home from "./pages/Home";
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <div>
           <Header />
+          <Quote />
           <section className="flex justify-between py-8 px-16">
             <SearchCompanyProfile />
             <SearchCompanyTicker />
