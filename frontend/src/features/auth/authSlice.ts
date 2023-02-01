@@ -10,7 +10,13 @@ export interface InitialState {
 }
 
 //Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+const getUser = localStorage.getItem("user");
+
+let user;
+
+if (getUser) {
+  user = JSON.parse(getUser);
+}
 
 const initialState: InitialState = {
   user: user ? user : null,
@@ -44,6 +50,11 @@ export const register = createAsyncThunk(
   }
 );
 
+//Logout user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await authService.logout();
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -69,6 +80,9 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
         state.user = null;
       });
   },
