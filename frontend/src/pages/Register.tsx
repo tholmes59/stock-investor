@@ -8,6 +8,7 @@ import { RootState } from "../app/store";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import authService from "../features/auth/authService";
 import { register, reset } from "../features/auth/authSlice";
+import Spinner from "../components/Spinner";
 
 export default function Register() {
   interface FormData {
@@ -69,13 +70,10 @@ export default function Register() {
       dispatch(register(newUser));
     }
 
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      password2: "",
-    });
+    dispatch(reset());
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="flex flex-col mt-20 mb-16 mx-auto items-center w-full max-w-2xl border p-6 rounded-md bg-[#f0eff4] shadow-md">
