@@ -1,14 +1,48 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { FaSignInAlt } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContent } from "react-toastify";
+import { RootState } from "../app/store";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import authService from "../features/auth/authService";
+import { login, reset } from "../features/auth/authSlice";
+import Spinner from "../components/Spinner";
 
 export default function Login() {
-  const [formData, setFormData] = useState({
+  interface FormData {
+    email: string;
+    password: string;
+  }
+
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
 
   const { email, password } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      // toast.error(message)
+      console.log(message);
+    }
+
+    if (isSuccess || user) {
+      console.log(user);
+      navigate("/");
+    }
+
+    dispatch(reset);
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -20,11 +54,15 @@ export default function Login() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    setFormData({
-      email: "",
-      password: "",
-    });
+
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="flex flex-col mt-20 mb-16 mx-auto items-center w-full max-w-2xl border p-6 rounded-md bg-[#f0eff4] shadow-md">
