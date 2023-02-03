@@ -21,7 +21,7 @@ function App() {
             <SearchCompanyProfile />
             <SearchCompanyTicker />
           </section>
-          <section className="w-full max-w-3xl mx-auto p-0 text-center">
+          <section className="w-full max-w-screen-xl mx-auto p-0 text-center">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
