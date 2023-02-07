@@ -5,35 +5,35 @@ const TopNewsCard = ({ topNews }: any) => {
   console.log(topNews);
 
   return (
-    <div className="flex flex-row justify-center items-center border-t border-lightgray my-2.5 text-sm">
-      <div>
+    <div className="flex flex-row justify-left items-center gap-2 border-t border-lightgray my-2.5 text-sm">
+      <div className="w-60">
         {topNews.image === "None" ? (
           <img
             alt=""
             src={missing}
-            className="w-40 h-24 mx-2.5 object-contain"
+            className="w-60 h-24 mx-2.5 object-cover p-2.5 "
           ></img>
         ) : (
           <img
             alt=""
             src={topNews.image}
-            className="w-40 h-24 mx-2.5 object-contain"
+            className="w-40 h-24 mx-2.5 object-cover p-2.5"
           ></img>
         )}
       </div>
-      <div className="flex flex-col my-2.5">
-        <p>
+      <div className="flex flex-col my-2.5 px-2.5">
+        <p className="text-left">
           <a
             href={topNews.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-black font-bold text-lg hover:text-[color: #0f69ff]"
+            className="text-black font-bold text-lg hover:text-[color: #0f69ff] "
           >
             {topNews.title}
           </a>
         </p>
-        <div className="top-news-author">By {topNews.author}</div>
-        <div className="top-news-description">{topNews.description}</div>
+        <div className="text-left">By {topNews.author}</div>
+        <div className="text-left">{topNews.description}</div>
       </div>
     </div>
   );
