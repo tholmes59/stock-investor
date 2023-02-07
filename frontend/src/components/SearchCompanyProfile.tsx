@@ -1,13 +1,31 @@
 import React from "react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { getStock, reset } from "../features/stock/stockSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../app/store";
 
 export default function SearchCompanyProfile() {
   const [ticker, setTicker] = useState("");
 
+  const dispatch = useAppDispatch();
+
+  const { stock, isLoading, isError, isSuccess, message } = useAppSelector(
+    (state) => state.stock
+  );
+
   const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(ticker);
+
+    dispatch(getStock(ticker));
+    interface Name {
+      companyName?: string;
+    }
+    console.log(stock && stock);
+    console.log(stock && stock.map((x: Name) => x.companyName));
+    dispatch(reset());
     setTicker("");
   };
 
