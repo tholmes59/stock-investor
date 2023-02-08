@@ -11,7 +11,7 @@ const TopNewsCard = ({ topNews }: any) => {
           <img
             alt=""
             src={missing}
-            className="w-60 h-24 mx-2.5 object-cover p-2.5 "
+            className="w-60 h-24 mx-2.5 object-cover p-2.5"
           ></img>
         ) : (
           <img
