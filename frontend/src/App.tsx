@@ -9,6 +9,8 @@ import SearchCompanyTicker from "./components/SearchCompanyTicker";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import StockDisplay from "./pages/StockDisplay";
+// import PrivateRoute from "./components/PrivateRoutes";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/stock/:stockTicker" element={<StockDisplay />} />
             </Routes>
           </section>
         </div>
