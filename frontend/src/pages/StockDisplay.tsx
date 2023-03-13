@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
+import CompanyProfile from "../components/CompanyProfile";
 import Spinner from "../components/Spinner";
 import { getStock } from "../features/stock/stockSlice";
 
@@ -30,5 +31,12 @@ export default function StockDisplay() {
 
   if (isLoading) return <Spinner />;
 
-  return <div>{stock && stock.map((x: Name) => x.companyName)}</div>;
+  // return <div>{stock && stock.map((x: Name) => x.companyName)}</div>;
+
+  return (
+    <div className="grid grid-cols-[repeat(2,1fr)] gap-10 p-4">
+      {/* <div>{stock && stock.map((x: Name) => x.companyName)}</div> */}
+      <CompanyProfile stock={stock} />
+    </div>
+  );
 }
