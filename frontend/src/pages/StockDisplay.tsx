@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
+import CompanyMetrics from "../components/CompanyMetrics";
 import CompanyProfile from "../components/CompanyProfile";
 import Spinner from "../components/Spinner";
 import StockChart from "../components/StockChart";
-import { getStock, getStockPrice } from "../features/stock/stockSlice";
+import {
+  getStock,
+  getStockMetrics,
+  getStockPrice,
+} from "../features/stock/stockSlice";
 
 export default function StockDisplay() {
-  const { stock, price, isLoading, isSuccess, isError, message } =
+  const { stock, price, metrics, isLoading, isSuccess, isError, message } =
     useAppSelector((state) => state.stock);
 
   const { stockTicker } = useParams<{ stockTicker: string }>();
@@ -19,9 +24,12 @@ export default function StockDisplay() {
     }
     dispatch(getStock(stockTicker!));
     dispatch(getStockPrice(stockTicker!));
+    dispatch(getStockMetrics(stockTicker!));
 
     // eslint-disable-next-line
   }, [isError, message, stockTicker]);
+
+  console.log(metrics);
 
   interface Name {
     companyName?: string;
@@ -34,6 +42,7 @@ export default function StockDisplay() {
       {/* <div>{stock && stock.map((x: Name) => x.companyName)}</div> */}
       <CompanyProfile stock={stock} />
       <StockChart price={price} />
+      <CompanyMetrics metrics={metrics} />
     </div>
   );
 }
