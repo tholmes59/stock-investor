@@ -32,3 +32,21 @@ code {
     transform: rotate(360deg);
   }
 }
+
+/* ***************Company Metrics Component**************** */
+
+.valuation-metrics-container h3 {
+  @apply text-left font-bold mt-10;
+}
+.valuation-metrics-container table {
+  @apply border-spacing-0 mx-0 my-[5px] pl-0 pr-2.5 py-0 text-left;
+}
+.valuation-metrics-container table tr {
+  @apply h-9 table-row mx-0 my-[5px] border-b-[#e0e4e9] border-b border-solid;
+}
+.valuation-metrics-container > table > tr > td {
+  @apply text-[0.95rem] w-full border-b-[#e0e4e9] border-b border-solid;
+}
+.valuation-metrics-container > table > tr > td:nth-child(even) {
+  @apply text-right;
+}
