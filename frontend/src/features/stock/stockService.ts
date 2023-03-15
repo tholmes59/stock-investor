@@ -18,9 +18,19 @@ const getCompanyPrice = async (ticker: string | null | unknown) => {
   return response.data;
 };
 
+//Fetch Company valuation metrics data
+const getCompanyMetrics = async (ticker: string | null | unknown) => {
+  const response = await axios.get(
+    `https://financialmodelingprep.com/api/v3/ratios-ttm/${ticker}?limit=1&apikey=${process.env.REACT_APP_FMP_API_KEY}`
+  );
+
+  return response.data;
+};
+
 const stockService = {
   getCompanyProfile,
   getCompanyPrice,
+  getCompanyMetrics,
 };
 
 export default stockService;
