@@ -72,7 +72,7 @@ const CompanyProfile = ({ stock }: any) => {
 
   return (
     <div>
-      <div className="flex items-center mx-0 my-2.5">
+      <div className="flex items-center mx-0 my-2.5 text-left">
         {stock && (
           <a
             href={stock.map((x: any) => x.website)}
@@ -97,7 +97,7 @@ const CompanyProfile = ({ stock }: any) => {
             ))}
         </div>
       </div>
-      <div className="flex flex-col justify-start">
+      <div className="flex flex-col justify-start text-left">
         {stock && (
           <div>
             <span className="font-bold text-4xl">{price}</span>{" "}
@@ -105,7 +105,7 @@ const CompanyProfile = ({ stock }: any) => {
             {<span style={pricePercentageFontColor}>({percentChange})</span>}
           </div>
         )}
-        <div className="x-0 my-2.5">
+        <div className="x-0 my-2.5 text-sm">
           {stock && stock.map((x: any) => <div>{x.address}</div>)}
           {stock &&
             stock.map((x: any) => (
@@ -115,15 +115,15 @@ const CompanyProfile = ({ stock }: any) => {
             ))}
           {stock && stock.map((x: any) => <div>{x.ceo}</div>)}
         </div>
-        {stock && <div>Market Cap: {marketCap}</div>}
+        {stock && <div className="text-sm">Market Cap: {marketCap}</div>}
         {stock && (
-          <div>
+          <div className="text-sm">
             52 Week Range:{" "}
             {/* {fiftyTwoWeek(stock && stock.map((x: any) => x.range))} */}
             {stock && stock.map((x: any) => x.range)}
           </div>
         )}
-        <div className="italic mx-0 my-2.5">
+        <div className="italic mx-0 my-2.5 text-sm text-left">
           {stock && stock.map((x: any) => <div>{x.description}</div>)}
         </div>
       </div>
