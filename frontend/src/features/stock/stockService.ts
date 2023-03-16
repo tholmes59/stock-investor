@@ -27,10 +27,20 @@ const getCompanyMetrics = async (ticker: string | null | unknown) => {
   return response.data;
 };
 
+//Fetch Company news
+const getCompanyNews = async (ticker: string | null | unknown) => {
+  const response = await axios.get(
+    `https://newsapi.org/v2/everything?q=${ticker}&language=en&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
+  );
+
+  return response.data;
+};
+
 const stockService = {
   getCompanyProfile,
   getCompanyPrice,
   getCompanyMetrics,
+  getCompanyNews,
 };
 
 export default stockService;
