@@ -5,29 +5,6 @@ import Spinner from "./Spinner";
 import { getStock } from "../features/stock/stockSlice";
 
 const CompanyProfile = ({ stock }: any) => {
-  // const { stock, isLoading, isSuccess, isError, message } = useAppSelector(
-  //   (state) => state.stock
-  // );
-
-  // const { stockTicker } = useParams<{ stockTicker: string }>();
-  // console.log(stockTicker);
-  // const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.log(message);
-  //   }
-  //   dispatch(getStock(stockTicker!));
-
-  //   // eslint-disable-next-line
-  // }, [isError, message, stockTicker]);
-
-  // console.log(stock);
-
-  // if (isLoading) return <Spinner />;
-
-  console.log(stock);
-
   let marketCap;
   if ((stock && stock.map((x: any) => x.mktCap)) < 1000000000) {
     marketCap =
@@ -41,7 +18,6 @@ const CompanyProfile = ({ stock }: any) => {
       (stock && stock?.map((x: any) => x.mktCap) / 1000000000000).toFixed(3) +
       "T";
   }
-  console.log(marketCap);
 
   let price = stock && stock.map((x: any) => x.price).shift();
   // .toFixed(2) * 1;
@@ -51,9 +27,7 @@ const CompanyProfile = ({ stock }: any) => {
   let percentChange =
     (((price + priceChange) / price - 1) * 100).toFixed(2) + "%";
   // let percentChange = (((price + priceChange) / price) - 1)
-  console.log(price);
-  console.log(priceChange);
-  console.log(price + priceChange);
+
   let pricePercentageFontColor = {};
   if (priceChange > 0) {
     pricePercentageFontColor = { color: "green" };
@@ -61,7 +35,6 @@ const CompanyProfile = ({ stock }: any) => {
   if (priceChange < 0) {
     pricePercentageFontColor = { color: "red" };
   }
-  console.log(percentChange);
 
   const fiftyTwoWeek = (val: any) => {
     let temp = val[0].split("-");
