@@ -5,6 +5,7 @@ export interface InitialStockState {
   stock: [] | null;
   price: [] | null;
   metrics: [] | null;
+  news: [] | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -15,6 +16,7 @@ const initialState: InitialStockState = {
   stock: [],
   price: [],
   metrics: [],
+  news: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -75,6 +77,24 @@ export const getStockMetrics = createAsyncThunk(
   }
 );
 
+// Get stock news
+export const getStockNews = createAsyncThunk(
+  "stock/getStockNews",
+  async (ticker: string, thunkAPI) => {
+    try {
+      return await stockService.getCompanyNews(ticker);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const stockSlice = createSlice({
   name: "stocks",
   initialState,
@@ -118,6 +138,19 @@ export const stockSlice = createSlice({
         state.metrics = action.payload;
       })
       .addCase(getStockMetrics.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getStockNews.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getStockNews.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.news = action.payload;
+      })
+      .addCase(getStockNews.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
