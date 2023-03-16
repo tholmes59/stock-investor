@@ -1,8 +1,6 @@
 import React from "react";
 
 const CompanyMetrics = ({ metrics }: any) => {
-  console.log(metrics);
-
   function companyMetrics(val: string) {
     let num = metrics && metrics.map((x: any) => x[val]);
     let value = num.shift();
