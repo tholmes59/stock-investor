@@ -16,19 +16,25 @@ const News = ({ news, stock }: any) => {
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  const currentStories = news && news.articles.slice(itemOffset, endOffset);
+  let currentStoriesArray = news && news.articles;
+  let currentStories: any;
+  let currentStoriesLength: any;
+  if (currentStoriesArray) {
+    currentStories = currentStoriesArray.slice(itemOffset, endOffset);
+    currentStoriesLength = currentStoriesArray.length;
+  }
   console.log(currentStories);
 
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    setCurrentItems(news && news.articles.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(news && news.articles.length / itemsPerPage));
+    setCurrentItems(currentStories);
+    setPageCount(Math.ceil(currentStoriesLength / itemsPerPage));
   }, [itemOffset, itemsPerPage, news]);
 
   const newsCards =
-    news &&
+    currentStories &&
     currentStories.map((news: any, id: any) => (
       <NewsCard key={id} news={news} />
     ));
@@ -46,7 +52,7 @@ const News = ({ news, stock }: any) => {
       <div>
         {news && <h1>{ticker} in the news</h1>}
         {newsCards}
-        <div className="pagination-container">
+        <div className="flex justify-center mt-[30px]">
           <ReactPaginate
             nextLabel="next >"
             onPageChange={handlePageClick}
