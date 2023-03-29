@@ -10,7 +10,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import StockDisplay from "./pages/StockDisplay";
-// import PrivateRoute from "./components/PrivateRoutes";
+import PrivateRoute from "./components/PrivateRoutes";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/stock/:stockTicker" element={<StockDisplay />} />
+              <Route path="/user/:userId" element={<PrivateRoute />}>
+                <Route path="/user/:userId" element={<UserDashboard />} />
+              </Route>
             </Routes>
           </section>
         </div>
