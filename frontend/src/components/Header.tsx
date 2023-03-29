@@ -1,4 +1,5 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser, FaHome } from "react-icons/fa";
+import { AiOutlineStock } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/investorInfoLogo2.png";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
@@ -14,6 +15,15 @@ export default function Header() {
     dispatch(reset());
     navigate("/");
   };
+
+  interface User {
+    _id: string;
+    name: string;
+    email: string;
+    token: string;
+  }
+
+  console.log(user && (user as any)._id);
 
   return (
     <header className="relative h-auto w-full p-2 bg-[#003049] text-[#edf2f5]">
@@ -31,11 +41,21 @@ export default function Header() {
             </Link>
           </li>
           {user ? (
-            <li className="ml-5 hover:text-[#f77f00] hover:cursor-pointer">
-              <button onClick={onLogout} className="flex items-center">
-                <FaSignOutAlt className="mr-1.5" /> Logout
-              </button>
-            </li>
+            <>
+              <li className="ml-5 hover:text-[#f77f00] hover:cursor-pointer">
+                <Link
+                  to={`/user/${(user as User)._id}`}
+                  className="flex items-center"
+                >
+                  <AiOutlineStock className="mr-1.5" /> Porfolio
+                </Link>
+              </li>
+              <li className="ml-5 hover:text-[#f77f00] hover:cursor-pointer">
+                <button onClick={onLogout} className="flex items-center">
+                  <FaSignOutAlt className="mr-1.5" /> Logout
+                </button>
+              </li>
+            </>
           ) : (
             <>
               <li className="ml-5 hover:text-[#f77f00] hover:cursor-pointer">
