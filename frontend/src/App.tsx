@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import StockDisplay from "./pages/StockDisplay";
-import PrivateRoute from "./components/PrivateRoutes";
+import PrivateRoute from "./components/PrivateRoute";
 import UserDashboard from "./pages/UserDashboard";
 
 function App() {
