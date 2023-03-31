@@ -2,10 +2,18 @@ const asyncHandler = require("express-async-handler");
 const Ticker = require("../models/tickerModel");
 const User = require("../models/userModel");
 
-//@desc     Get tickers
-//@route    GET /api/tickers
+//@desc     Get user tickers
+//@route    GET /api/tickers/
 //@access   Private
 const getTickers = asyncHandler(async (req, res) => {
+  // get user using id and JWT
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
   let tickers = await Ticker.find({ user: req.user.id });
   res.status(200).json(tickers);
 });
@@ -14,13 +22,27 @@ const getTickers = asyncHandler(async (req, res) => {
 //@route    POST /api/tickers
 //@access   Private
 const setTicker = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  const { image, companyName, symbol, price, priceChange } = req.body;
+
+  if (!image || !companyName || !symbol || !price || !priceChange) {
     res.status(400);
-    throw new Error("Please add a ticker");
+    throw new Error("Please add correct information");
+  }
+
+  // get user using id and JWT
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
   }
 
   const ticker = await Ticker.create({
-    text: req.body.text,
+    image,
+    companyName,
+    symbol,
+    price,
+    priceChange,
     user: req.user.id,
   });
 
