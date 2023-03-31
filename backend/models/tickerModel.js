@@ -7,9 +7,25 @@ const tickerSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    text: {
+    image: {
       type: String,
-      required: [true, "Please add a ticker"],
+      required: [true],
+    },
+    companyName: {
+      type: String,
+      required: [true],
+    },
+    symbol: {
+      type: String,
+      required: [true],
+    },
+    price: {
+      type: Number,
+      required: [true],
+    },
+    priceChange: {
+      type: Number,
+      required: [true],
     },
   },
   {
