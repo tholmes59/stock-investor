@@ -1,6 +1,22 @@
 import React from "react";
 
-const NewsCard = ({ news }: any) => {
+interface Source {
+  id: string;
+  name: string;
+}
+
+interface News {
+  author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  source: Source;
+  title: string;
+  url: string;
+  urlToImage: string;
+}
+
+const NewsCard = ({ news }: { news: News }) => {
   return (
     <div className="flex flex-row justify-center items-center text-[0.8rem] mx-0 my-2.5 border-t-[lightgray] border-t-[1px] border-solid">
       <div className="w-[155px] h-[100px] mr-5">
