@@ -1,7 +1,19 @@
 import React from "react";
 import missing from "../../assets/Image-Not-Available.png";
 
-const TopNewsCard = ({ topNews }: any) => {
+interface TopNews {
+  author: string;
+  category: string[];
+  description: string;
+  id: string;
+  image: string;
+  language: string;
+  published: string;
+  title: string;
+  url: string;
+}
+
+const TopNewsCard = ({ topNews }: { topNews: TopNews }) => {
   console.log(topNews);
 
   return (
