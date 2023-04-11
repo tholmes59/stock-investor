@@ -3,6 +3,11 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 
 const StockChart = ({ price }: HighchartsReact.Props) => {
+  interface PriceData {
+    close: number;
+    date: string;
+  }
+
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   let chartName = price && price.symbol;
@@ -13,10 +18,10 @@ const StockChart = ({ price }: HighchartsReact.Props) => {
 
   let priceData = price && [...priceArray];
 
-  let stockData = priceData.sort(function compare(a: any, b: any) {
-    let dateA: any = new Date(a.date);
-    let dateB: any = new Date(b.date);
-    return dateA - dateB;
+  let stockData = priceData.sort(function compare(a: PriceData, b: PriceData) {
+    let dateA: Date = new Date(a.date);
+    let dateB: Date = new Date(b.date);
+    return dateA.getTime() - dateB.getTime();
   });
 
   if (stockData) {
