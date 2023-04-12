@@ -3,14 +3,14 @@ import axios from "axios";
 const API_URL = "/api/tickers/";
 
 //Create new ticker
-const createTicker = async (tickerData: any, token: any) => {
+const createTicker = async (savedStock: any, token: any) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.post(API_URL, tickerData, config);
+  const response = await axios.post(API_URL, savedStock, config);
 
   return response.data;
 };
