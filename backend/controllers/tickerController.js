@@ -22,9 +22,9 @@ const getTickers = asyncHandler(async (req, res) => {
 //@route    POST /api/tickers
 //@access   Private
 const setTicker = asyncHandler(async (req, res) => {
-  const { image, companyName, symbol, price, priceChange } = req.body;
+  const { image, companyName, symbol } = req.body;
 
-  if (!image || !companyName || !symbol || !price || !priceChange) {
+  if (!image || !companyName || !symbol) {
     res.status(400);
     throw new Error("Please add correct information");
   }
@@ -41,8 +41,6 @@ const setTicker = asyncHandler(async (req, res) => {
     image,
     companyName,
     symbol,
-    price,
-    priceChange,
     user: req.user.id,
   });
 
