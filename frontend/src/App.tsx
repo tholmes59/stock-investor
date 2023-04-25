@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import StockDisplay from "./pages/StockDisplay";
 import PrivateRoute from "./components/PrivateRoute";
 import UserDashboard from "./pages/UserDashboard";
+import SymbolResults from "./components/SymbolResults";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <section className="flex justify-between py-8 px-16">
             <SearchCompanyProfile />
             <SearchCompanyTicker />
+            <SymbolResults />
           </section>
           <section className="w-full max-w-screen-xl mx-auto p-0 text-center">
             <Routes>
