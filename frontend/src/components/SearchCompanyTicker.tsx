@@ -1,13 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { getStockSymbol } from "../features/stock/stockSlice";
 
 export default function SearchCompanyTicker() {
   const [companyName, setCompanyName] = useState("");
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(companyName);
+    dispatch(getStockSymbol(companyName));
     setCompanyName("");
   };
 
