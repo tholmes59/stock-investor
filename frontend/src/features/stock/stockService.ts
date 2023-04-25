@@ -36,11 +36,21 @@ const getCompanyNews = async (ticker: string | null | unknown) => {
   return response.data;
 };
 
+//Fetch Company stock symbol
+const getStockSymbol = async (name: string | null | unknown) => {
+  const response = await axios.get(
+    `https://financialmodelingprep.com/api/v3/search?query=${name}&apikey=${process.env.REACT_APP_FMP_API_KEY}`
+  );
+
+  return response.data;
+};
+
 const stockService = {
   getCompanyProfile,
   getCompanyPrice,
   getCompanyMetrics,
   getCompanyNews,
+  getStockSymbol,
 };
 
 export default stockService;
