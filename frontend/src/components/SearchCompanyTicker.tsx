@@ -4,7 +4,15 @@ import { FaSearch } from "react-icons/fa";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { getStockSymbol } from "../features/stock/stockSlice";
 
-export default function SearchCompanyTicker() {
+interface SearchCompanyTickerProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export default function SearchCompanyTicker({
+  open,
+  setOpen,
+}: SearchCompanyTickerProps) {
   const [companyName, setCompanyName] = useState("");
 
   const dispatch = useAppDispatch();
@@ -14,6 +22,7 @@ export default function SearchCompanyTicker() {
     console.log(companyName);
     dispatch(getStockSymbol(companyName));
     setCompanyName("");
+    setOpen(true);
   };
 
   return (
