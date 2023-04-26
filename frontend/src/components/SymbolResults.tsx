@@ -28,8 +28,11 @@ function SymbolResults({ open, setOpen }: SearchCompanyTickerProps) {
 
   if (symbol && symbol.length < 1) {
     return (
-      <div id="tickerResults">
-        <div onClick={closeWindow} className="close-ticker-results">
+      <div className="absolute w-80 bg-white border-2 border-gray-400 z-10 text-sm">
+        <div
+          onClick={closeWindow}
+          className="flex flex-row-reverse pr-2 hover:cursor-pointer"
+        >
           x
         </div>
         <p>Please enter valid company name</p>
@@ -40,15 +43,18 @@ function SymbolResults({ open, setOpen }: SearchCompanyTickerProps) {
   return (
     <>
       {symbol && (
-        <div id="tickerResults">
+        <div className="absolute w-80 bg-white border-2 border-gray-400 z-10 text-sm">
           {symbol && (
-            <div onClick={closeWindow} className="close-ticker-results">
+            <div
+              onClick={closeWindow}
+              className="flex flex-row-reverse pr-2 hover:cursor-pointer"
+            >
               x
             </div>
           )}
           {symbol &&
             symbol.map((x: SymbolItem) => (
-              <div className="ticker-search-results">
+              <div className="p-2 hover:bg-gray-500 cursor-pointer">
                 {x.symbol} {x.name} {x.exchangeShortName}
               </div>
             ))}
