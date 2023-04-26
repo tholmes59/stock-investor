@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +15,7 @@ import UserDashboard from "./pages/UserDashboard";
 import SymbolResults from "./components/SymbolResults";
 
 function App() {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Router>
@@ -23,8 +24,8 @@ function App() {
           <Quote />
           <section className="flex justify-between py-8 px-16">
             <SearchCompanyProfile />
-            <SearchCompanyTicker />
-            <SymbolResults />
+            <SearchCompanyTicker open={open} setOpen={setOpen} />
+            {open ? <SymbolResults open={open} setOpen={setOpen} /> : null}
           </section>
           <section className="w-full max-w-screen-xl mx-auto p-0 text-center">
             <Routes>
