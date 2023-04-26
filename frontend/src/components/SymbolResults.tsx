@@ -9,13 +9,19 @@ interface SymbolItem {
   symbol: string;
 }
 
-function SymbolResults() {
+interface SearchCompanyTickerProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+function SymbolResults({ open, setOpen }: SearchCompanyTickerProps) {
   const { symbol, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.stock
   );
 
   const closeWindow = () => {
     console.log("window closed");
+    setOpen(false);
   };
 
   console.log(symbol);
