@@ -24,8 +24,10 @@ function App() {
           <Quote />
           <section className="flex justify-between py-8 px-16">
             <SearchCompanyProfile />
-            <SearchCompanyTicker open={open} setOpen={setOpen} />
-            {open ? <SymbolResults open={open} setOpen={setOpen} /> : null}
+            <div>
+              <SearchCompanyTicker open={open} setOpen={setOpen} />
+              {open ? <SymbolResults open={open} setOpen={setOpen} /> : null}
+            </div>
           </section>
           <section className="w-full max-w-screen-xl mx-auto p-0 text-center">
             <Routes>
