@@ -1,5 +1,7 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { useNavigate } from "react-router-dom";
+import { reset } from "../features/stock/stockSlice";
 
 interface SymbolItem {
   currency: string;
@@ -19,12 +21,22 @@ function SymbolResults({ open, setOpen }: SearchCompanyTickerProps) {
     (state) => state.stock
   );
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const closeWindow = () => {
     console.log("window closed");
     setOpen(false);
   };
 
   console.log(symbol);
+
+  const searchSymbol = (ticker: string) => {
+    console.log(ticker);
+    navigate(`/stock/${ticker}`);
+    setOpen(false);
+    dispatch(reset());
+  };
 
   if (symbol && symbol.length < 1) {
     return (
@@ -54,7 +66,10 @@ function SymbolResults({ open, setOpen }: SearchCompanyTickerProps) {
           )}
           {symbol &&
             symbol.map((x: SymbolItem) => (
-              <div className="p-2 hover:bg-gray-500 cursor-pointer">
+              <div
+                className="p-2 hover:bg-gray-500 cursor-pointer"
+                onClick={() => searchSymbol(x.symbol)}
+              >
                 {x.symbol} {x.name} {x.exchangeShortName}
               </div>
             ))}
