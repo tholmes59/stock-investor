@@ -79,6 +79,8 @@ export default function StockDisplay() {
 
   if (isLoading) return <Spinner />;
 
+  if (stock && stock.length < 1) return <h1>Please enter valid ticker</h1>;
+
   return (
     <div>
       <button onClick={onButtonClick}>Save</button>
