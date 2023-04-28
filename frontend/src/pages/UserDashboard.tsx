@@ -29,8 +29,10 @@ export default function UserDashboard() {
   console.log(stockData);
 
   return (
-    <div>
-      <h1>{user && (user as User).name} Portfolio</h1>
+    <div className="mt-10">
+      <h1 className="text-left ml-12 text-2xl">
+        {user && (user as User).name}'s Portfolio Holdings:
+      </h1>
       <TickerPortfolio />
     </div>
   );
