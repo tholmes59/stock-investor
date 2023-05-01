@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import CompanyMetrics from "../components/CompanyMetrics";
@@ -12,10 +12,12 @@ import {
   getStockNews,
   getStockPrice,
 } from "../features/stock/stockSlice";
-import { createTicker } from "../features/ticker/tickerSlice";
+import { createTicker, reset } from "../features/ticker/tickerSlice";
 import { toast, ToastContent } from "react-toastify";
 
 export default function StockDisplay() {
+  const [isSaved, setIsSaved] = useState(false);
+
   const {
     stock,
     price,
@@ -26,6 +28,17 @@ export default function StockDisplay() {
     isError,
     message,
   } = useAppSelector((state) => state.stock);
+
+  // Match the display symbol with users saved symbols to determine which button to display
+  const { stockData } = useAppSelector((state) => state.ticker);
+
+  let savedSymbols: string[] = [];
+
+  stockData?.forEach((x) => {
+    savedSymbols.push(x.symbol);
+  });
+
+  let currentSymbol: any = stock?.map((x: StockItem) => x.symbol).toString();
 
   const { stockTicker } = useParams<{ stockTicker: string }>();
   const dispatch = useAppDispatch();
@@ -40,10 +53,7 @@ export default function StockDisplay() {
     dispatch(getStockNews(stockTicker!));
 
     // eslint-disable-next-line
-  }, [isError, message, stockTicker]);
-
-  console.log(news);
-  console.log(price);
+  }, [stockData, isError, message, stockTicker]);
 
   interface StockItem {
     image: string;
@@ -51,7 +61,7 @@ export default function StockDisplay() {
     symbol: string;
   }
 
-  const onButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     let savedStock =
@@ -71,6 +81,8 @@ export default function StockDisplay() {
     dispatch(createTicker(savedStock));
     toast.success("saved to database!");
     console.log("saved to database!");
+    dispatch(reset);
+    setIsSaved(true);
   };
 
   interface Name {
@@ -83,7 +95,10 @@ export default function StockDisplay() {
 
   return (
     <div>
-      <button onClick={onButtonClick}>Save</button>
+      {isSaved || savedSymbols.includes(currentSymbol) ? null : (
+        <button onClick={onSaveClick}>Save</button>
+      )}
+
       <div className="grid grid-cols-[repeat(2,1fr)] gap-10 p-4">
         {/* <div>{stock && stock.map((x: Name) => x.companyName)}</div> */}
         <CompanyProfile stock={stock} />
