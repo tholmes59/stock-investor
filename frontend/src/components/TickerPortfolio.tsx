@@ -1,8 +1,6 @@
-import React from "react";
-import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { getTickers } from "../features/ticker/tickerSlice";
+import { getTickers, deleteTicker } from "../features/ticker/tickerSlice";
 import TickerCard from "./TickerCard";
 
 function TickerPortfolio() {
@@ -16,11 +14,16 @@ function TickerPortfolio() {
     dispatch(getTickers());
   }, [dispatch]);
 
-  console.log(stockData);
+  const handleDeleteTicker = (tickerId: string) => {
+    dispatch(deleteTicker(tickerId)).then(() => {
+      dispatch(getTickers());
+    });
+  };
+
   return (
     <div>
       {stockData?.map((ticker) => (
-        <TickerCard ticker={ticker} />
+        <TickerCard ticker={ticker} onDeleteTicker={handleDeleteTicker} />
       ))}
     </div>
   );
