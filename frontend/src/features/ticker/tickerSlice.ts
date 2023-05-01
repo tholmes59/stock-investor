@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import tickerService from "./tickerService";
 
 export interface InitialTickerState {
-  stockData: [] | null;
+  stockData: StockItem[] | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -77,6 +77,25 @@ export const getTickers = createAsyncThunk(
   }
 );
 
+//Delete Ticker
+export const deleteTicker = createAsyncThunk(
+  "ticker/delete",
+  async (tickerId: string, thunkAPI) => {
+    try {
+      const token = user?.token;
+      return await tickerService.deleteTicker(tickerId, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const tickerSlice = createSlice({
   name: "tickers",
   initialState,
@@ -106,6 +125,21 @@ export const tickerSlice = createSlice({
         state.stockData = action.payload;
       })
       .addCase(getTickers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteTicker.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTicker.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.stockData = state.stockData!.filter(
+          (ticker) => ticker.symbol !== action.payload
+        );
+      })
+      .addCase(deleteTicker.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
