@@ -32,13 +32,12 @@ export default function Login() {
 
   useEffect(() => {
     if (isError) {
-      // toast.error(message)
-      console.log(message);
+      toast.error(message as ToastContent<unknown>);
     }
 
     if (isSuccess || user) {
       console.log(user);
-      navigate("/");
+      navigate(`/`);
     }
 
     dispatch(reset);
