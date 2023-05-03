@@ -14,6 +14,7 @@ import {
 } from "../features/stock/stockSlice";
 import { createTicker, reset } from "../features/ticker/tickerSlice";
 import { toast, ToastContent } from "react-toastify";
+import { FaSave } from "react-icons/fa";
 
 export default function StockDisplay() {
   const [isSaved, setIsSaved] = useState(false);
@@ -96,7 +97,15 @@ export default function StockDisplay() {
   return (
     <div>
       {isSaved || savedSymbols.includes(currentSymbol) ? null : (
-        <button onClick={onSaveClick}>Save</button>
+        <div className="flex flex-row w-full px-4">
+          <button
+            onClick={onSaveClick}
+            className="flex flex-row items-center border  rounded-md p-2"
+          >
+            <FaSave className="mr-2" />
+            Save
+          </button>
+        </div>
       )}
 
       <div className="grid grid-cols-[repeat(2,1fr)] gap-10 p-4">
