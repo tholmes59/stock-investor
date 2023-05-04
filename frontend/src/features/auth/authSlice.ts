@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
 export interface InitialState {
-  user: {} | null;
+  user: User | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -26,7 +26,7 @@ const initialState: InitialState = {
   message: "",
 };
 
-interface User {
+interface RegisterUser {
   name: string;
   email: string;
   password: string;
@@ -37,10 +37,17 @@ interface LoginUser {
   password: string;
 }
 
+interface User {
+  name: string;
+  email: string;
+  password: string;
+  token: string;
+}
+
 //Register user
 export const register = createAsyncThunk(
   "auth/register",
-  async (user: User, thunkAPI) => {
+  async (user: RegisterUser, thunkAPI) => {
     try {
       return await authService.register(user);
     } catch (error: any) {
