@@ -16,8 +16,6 @@ function Sectors() {
     loadSectors();
   }, []);
 
-  console.log(sectors);
-
   let keyData = Object.keys(sectors);
 
   let sectorsArray = Object.entries(sectors).map((e) => ({ [e[0]]: e[1] }));
@@ -28,8 +26,6 @@ function Sectors() {
   for (let i = 1; i < keyData.length; i++) {
     tempArray.push(sectors[keyData[i]]);
   }
-
-  console.log(tempArray);
 
   let tableStyle: any = { "text-align": "left" };
 
