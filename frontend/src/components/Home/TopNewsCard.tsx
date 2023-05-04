@@ -14,8 +14,6 @@ interface TopNews {
 }
 
 const TopNewsCard = ({ topNews }: { topNews: TopNews }) => {
-  console.log(topNews);
-
   return (
     <div className="flex flex-row justify-left items-center gap-2 border-t border-lightgray my-2.5 text-sm">
       <div className="w-60">
