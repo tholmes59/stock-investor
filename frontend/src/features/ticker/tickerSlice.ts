@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import tickerService from "./tickerService";
+import { RootState } from "../../app/store";
 
 export interface InitialTickerState {
   stockData: StockItem[] | null;
@@ -25,13 +26,13 @@ interface User {
 }
 
 //Get user from localStorage
-const getUser = localStorage.getItem("user");
+// const getUser = localStorage.getItem("user");
 
-let user: User;
+// let user: User;
 
-if (getUser) {
-  user = JSON.parse(getUser);
-}
+// if (getUser) {
+//   user = JSON.parse(getUser);
+// }
 
 interface StockItem {
   image: string;
@@ -44,7 +45,11 @@ export const createTicker = createAsyncThunk(
   "ticker/create",
   async (savedStock: StockItem[] | null | undefined, thunkAPI) => {
     try {
-      const token = user?.token;
+      const user = (thunkAPI.getState() as RootState).auth.user;
+      if (!user || (typeof user === "object" && !("token" in user))) {
+        throw new Error("User not found or token missing");
+      }
+      const token = user.token;
       return await tickerService.createTicker(savedStock?.pop(), token);
     } catch (error: any) {
       const message =
@@ -63,7 +68,11 @@ export const getTickers = createAsyncThunk(
   "ticker/getAll",
   async (_, thunkAPI) => {
     try {
-      const token = user?.token;
+      const user = (thunkAPI.getState() as RootState).auth.user;
+      if (!user || (typeof user === "object" && !("token" in user))) {
+        throw new Error("User not found or token missing");
+      }
+      const token = user.token;
       return await tickerService.getTickers(token);
     } catch (error: any) {
       const message =
@@ -82,7 +91,11 @@ export const deleteTicker = createAsyncThunk(
   "ticker/delete",
   async (tickerId: string, thunkAPI) => {
     try {
-      const token = user?.token;
+      const user = (thunkAPI.getState() as RootState).auth.user;
+      if (!user || (typeof user === "object" && !("token" in user))) {
+        throw new Error("User not found or token missing");
+      }
+      const token = user.token;
       return await tickerService.deleteTicker(tickerId, token);
     } catch (error: any) {
       const message =
