@@ -21,17 +21,13 @@ export default function UserDashboard() {
     token: string;
   }
 
-  useEffect(() => {
-    dispatch(getTickers());
-  }, [dispatch]);
-
   console.log(user);
   console.log(stockData);
 
   return (
     <div className="mt-10">
       <h1 className="text-left ml-12 text-2xl">
-        {user && (user as User).name}'s Portfolio Holdings:
+        {user && (user as any).name}'s Portfolio Holdings:
       </h1>
       <TickerPortfolio />
     </div>
