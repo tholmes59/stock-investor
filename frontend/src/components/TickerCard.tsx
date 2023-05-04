@@ -16,6 +16,7 @@ function TickerCard({ ticker, onDeleteTicker }: TickerCardProps) {
   const handleSubmit = () => {
     dispatch(deleteTicker(ticker._id));
     onDeleteTicker(ticker._id);
+    dispatch(reset());
   };
 
   const handleClick = () => {
@@ -27,7 +28,7 @@ function TickerCard({ ticker, onDeleteTicker }: TickerCardProps) {
     <div className="flex flex-row items-center">
       <div
         onClick={handleClick}
-        className="flex flex-row items-center my-8 ml-8 py-6 justify-around shadow-md rounded-md bg-slate-50 w-10/12 hover:scale-105"
+        className="flex flex-row items-center my-8 ml-8 py-6 justify-around shadow-md rounded-md bg-slate-50 w-10/12 hover:scale-105 hover:cursor-pointer"
       >
         <img src={ticker.image} alt="company logo" className="h-12"></img>
         <div className="">{ticker.symbol}</div>
