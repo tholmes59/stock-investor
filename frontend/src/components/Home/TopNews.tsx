@@ -17,7 +17,6 @@ const TopNews = () => {
   }, []);
 
   let articleArry = topNews.news;
-  console.log(articleArry);
 
   let articles =
     articleArry &&
