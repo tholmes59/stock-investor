@@ -44,7 +44,7 @@ export default function Header() {
             <>
               <li className="ml-5 hover:text-[#f77f00] hover:cursor-pointer">
                 <Link
-                  to={`/user/${(user as User)._id}`}
+                  to={`/user/${(user as any)._id}`}
                   className="flex items-center"
                 >
                   <AiOutlineStock className="mr-1.5" /> Porfolio
