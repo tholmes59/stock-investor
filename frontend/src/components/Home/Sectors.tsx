@@ -32,7 +32,7 @@ function Sectors() {
   let table = (
     <table className="border-collapse">
       <thead className="bg-[#f0eff4]">
-        <tr>
+        <tr className="text-[13px]">
           <th>Sector</th>
           <th>Today</th>
           <th>1D</th>
@@ -46,7 +46,7 @@ function Sectors() {
           <th>10yr</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="text-[13px]">
         <tr>
           <th style={tableStyle}>Communication Services</th>
           {tempArray &&
