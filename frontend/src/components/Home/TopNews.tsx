@@ -26,7 +26,7 @@ const TopNews = () => {
 
   return (
     <div className="grid col-start-1 col-end-3">
-      <h2>Today's Top News</h2>
+      <h2 className="text-lg">Today's Top News</h2>
       <div className="grid grid-cols-[repeat(2,49%)] gap-x-[1%] gap-y-[0.5%]">
         {articles}
       </div>
