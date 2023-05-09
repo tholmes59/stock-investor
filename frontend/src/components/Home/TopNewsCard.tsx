@@ -15,23 +15,23 @@ interface TopNews {
 
 const TopNewsCard = ({ topNews }: { topNews: TopNews }) => {
   return (
-    <div className="flex flex-row justify-left items-center gap-2 border-t border-lightgray my-2.5 text-sm">
-      <div className="w-60">
+    <div className="flex flex-row justify-start items-center gap-2 border-t border-lightgray my-2.5 text-sm ">
+      <div className="w-40">
         {topNews.image === "None" ? (
           <img
             alt=""
             src={missing}
-            className="w-60 h-24 mx-2.5 object-cover p-2.5"
+            className=" h-24 mx-2.5 object-cover p-2.5"
           ></img>
         ) : (
           <img
             alt=""
             src={topNews.image}
-            className="w-40 h-24 mx-2.5 object-cover p-2.5"
+            className="h-24 mx-2.5 object-cover p-2.5"
           ></img>
         )}
       </div>
-      <div className="flex flex-col my-2.5 px-2.5">
+      <div className="flex flex-col my-2.5 px-2.5 items-start">
         <p className="text-left">
           <a
             href={topNews.url}
