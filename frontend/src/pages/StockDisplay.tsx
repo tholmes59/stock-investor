@@ -100,7 +100,7 @@ export default function StockDisplay() {
         <div className="flex flex-row w-full px-4">
           <button
             onClick={onSaveClick}
-            className="flex flex-row items-center border  rounded-md p-2"
+            className="flex flex-row items-center rounded-md p-2 bg-slate-200 shadow-slate-200"
           >
             <FaSave className="mr-2" />
             Save
