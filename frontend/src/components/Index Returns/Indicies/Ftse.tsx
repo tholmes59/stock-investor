@@ -41,7 +41,7 @@ function Ftse() {
 
   return (
     <>
-      <div className="flex flex-col basis-8 p-2 border border-gray-300 rounded-lg whitespace-nowrap w-full text-sm">
+      <div className="flex flex-col border border-gray-300 rounded-lg whitespace-nowrap justify-center text-lg">
         <div className="font-bold">FTSE</div>
         <div className="index-price">
           {ftse &&
@@ -50,7 +50,7 @@ function Ftse() {
               .shift()
               .toFixed(2)}
         </div>
-        <div className="flex">
+        <div className="flex justify-center">
           <div className="pr-1.5" style={pricePercentageFontColor}>
             {priceChange}
           </div>
