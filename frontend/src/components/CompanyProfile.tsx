@@ -73,8 +73,12 @@ const CompanyProfile = ({ stock }: any) => {
       <div className="flex flex-col justify-start text-left">
         {stock && (
           <div>
-            <span className="font-bold text-4xl">{price}</span>{" "}
-            {<span style={pricePercentageFontColor}>{priceChange}</span>}{" "}
+            <span className="font-bold text-4xl">{price.toFixed(2)}</span>{" "}
+            {
+              <span style={pricePercentageFontColor}>
+                {priceChange.toFixed(2)}
+              </span>
+            }{" "}
             {<span style={pricePercentageFontColor}>({percentChange})</span>}
           </div>
         )}
