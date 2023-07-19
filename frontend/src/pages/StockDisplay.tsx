@@ -30,6 +30,8 @@ export default function StockDisplay() {
     message,
   } = useAppSelector((state) => state.stock);
 
+  const { user } = useAppSelector((state) => state.auth);
+
   // Match the display symbol with users saved symbols to determine which button to display
   const { stockData } = useAppSelector((state) => state.ticker);
 
@@ -96,7 +98,7 @@ export default function StockDisplay() {
 
   return (
     <div>
-      {isSaved || savedSymbols.includes(currentSymbol) ? null : (
+      {!user || isSaved || savedSymbols.includes(currentSymbol) ? null : (
         <div className="flex flex-row w-full px-4">
           <button
             onClick={onSaveClick}
